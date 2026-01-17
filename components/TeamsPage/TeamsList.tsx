@@ -120,7 +120,6 @@ export function TeamsList() {
     }
   };
 
-  // Sync newTeamName when selectedTeam changes
   const handleSelectTeam = (teamId: string, teamName: string) => {
     setNewTeamName(teamName);
     teamsPageActions.selectTeam(teamId);

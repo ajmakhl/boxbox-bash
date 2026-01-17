@@ -3,7 +3,6 @@ import type { IPlayer } from '@interfaces/IPlayer';
 import type { INote } from '@interfaces/INote';
 import type { ITeam } from '@interfaces/ITeam';
 
-// State
 interface State {
   players: Record<string, IPlayer>;
   order: string[];
@@ -22,7 +21,6 @@ const initialState: State = {
 
 export const Store = proxy<State>(initialState);
 
-// Persist to localStorage on any change
 subscribe(Store, () => {
   localStorage.setItem('players', JSON.stringify(Store.players));
   localStorage.setItem('player-order', JSON.stringify(Store.order));
@@ -31,7 +29,6 @@ subscribe(Store, () => {
   localStorage.setItem('teams', JSON.stringify(Store.teams));
 });
 
-// Actions
 export const playerActions = {
   create(player: Omit<IPlayer, 'id'>): string {
     const id = crypto.randomUUID();
@@ -64,7 +61,6 @@ export const playerActions = {
     Store.generalNotes = [];
   },
 
-  // Note actions
   addNote(playerId: string, text: string): void {
     if (!Store.notes[playerId]) {
       Store.notes[playerId] = [];
@@ -98,7 +94,6 @@ export const playerActions = {
   },
 };
 
-// General Notes Actions
 export const generalNotesActions = {
   add(text: string): void {
     Store.generalNotes.push({
@@ -130,7 +125,6 @@ export const generalNotesActions = {
   },
 };
 
-// Team Actions
 export const teamActions = {
   create(name: string): string {
     const id = crypto.randomUUID();

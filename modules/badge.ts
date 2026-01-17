@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants';
 
 export const badge = tv({
-  base: 'absolute -top-px -right-px rounded-tr-xl rounded-bl-xl px-3 py-1 text-xs font-bold uppercase tracking-wider border-l border-b border-slate-700/30',
+  base: 'absolute -top-px -right-px rounded-tr-xl rounded-bl-xl px-3 py-1.5 text-sm font-bold uppercase tracking-wider border-l border-b border-slate-700/30',
   variants: {
     rank: {
       iron: 'bg-zinc-600/20 text-zinc-400',

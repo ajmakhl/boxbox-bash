@@ -4,6 +4,7 @@ export interface IPlayer {
   gold: number;
   games: number;
   rank: string;
+  tier: number;
   lp: number;
   avatarSeed: string;
 }

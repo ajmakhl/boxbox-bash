@@ -53,18 +53,18 @@ function generateRandomPlayer() {
     randomNames[Math.floor(Math.random() * randomNames.length)] +
     randomSuffixes[Math.floor(Math.random() * randomSuffixes.length)];
   const rank = ranks[Math.floor(Math.random() * ranks.length)];
+  const tier = Math.floor(Math.random() * 4) + 1;
   const lp = Math.floor(Math.random() * 500);
   const games = Math.floor(Math.random() * 200) + 10;
   const gold = Math.floor(Math.random() * 30);
   const avatarSeed = crypto.randomUUID();
 
-  return { name, rank, lp, games, gold, avatarSeed };
+  return { name, rank, tier, lp, games, gold, avatarSeed };
 }
 
 export function CreatePlayer() {
   const handleCreatePlayer = () => {
     playerActions.create(generateRandomPlayer());
-    // Scroll to bottom after the new player is added
     setTimeout(() => {
       const scrollContainer = document.querySelector(
         'main > div.overflow-auto',

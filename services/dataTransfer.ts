@@ -26,6 +26,8 @@ function isValidPlayer(player: unknown): player is IPlayer {
     typeof p.games === 'number' &&
     typeof p.rank === 'string' &&
     VALID_RANKS.includes(p.rank) &&
+    (p.tier === undefined ||
+      (typeof p.tier === 'number' && p.tier >= 1 && p.tier <= 4)) &&
     typeof p.lp === 'number' &&
     typeof p.avatarSeed === 'string'
   );
@@ -103,7 +105,6 @@ export const dataTransfer = {
   },
 
   exportLimited(): string {
-    // Export only players (with gold = 0) and order
     const limitedPlayers: Record<string, IPlayer> = {};
     for (const [id, player] of Object.entries(Store.players)) {
       limitedPlayers[id] = {
@@ -111,6 +112,7 @@ export const dataTransfer = {
         name: player.name,
         games: player.games,
         rank: player.rank,
+        tier: player.tier || 1,
         lp: player.lp,
         avatarSeed: player.avatarSeed,
         gold: 0,
@@ -135,7 +137,6 @@ export const dataTransfer = {
       }
 
       if (data.limited) {
-        // Validate limited data
         if (!isValidPlayers(data.players)) {
           return { success: false, error: 'Invalid player data' };
         }
@@ -143,14 +144,12 @@ export const dataTransfer = {
           return { success: false, error: 'Invalid order data' };
         }
 
-        // Limited import - restore only players and order, reset everything else
         Store.players = data.players;
         Store.order = data.order;
         Store.notes = {};
         Store.generalNotes = [];
         Store.teams = [];
       } else {
-        // Validate full data
         if (!isValidPlayers(data.players)) {
           return { success: false, error: 'Invalid player data' };
         }
@@ -167,7 +166,6 @@ export const dataTransfer = {
           return { success: false, error: 'Invalid teams data' };
         }
 
-        // Full import
         Store.players = data.players;
         Store.order = data.order;
         Store.notes = data.notes;

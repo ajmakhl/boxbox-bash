@@ -21,7 +21,6 @@ export function useEditableField() {
   }, []);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    // Stop propagation for all keys to prevent dnd-kit from capturing arrow keys
     e.stopPropagation();
     if (e.key === 'Enter' || e.key === 'Escape') {
       setIsEditing(false);
@@ -57,7 +56,6 @@ export function useEditableIndex() {
   }, []);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    // Stop propagation for all keys to prevent dnd-kit from capturing arrow keys
     e.stopPropagation();
     if (e.key === 'Enter' || e.key === 'Escape') {
       setEditingIndex(null);
